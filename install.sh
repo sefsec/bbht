@@ -185,6 +185,26 @@ cat dns-Jhaddix.txt | head -n -14 > clean-jhaddix-dns.txt
 cd ~/tools/
 echo "done"
 
+echo "installing httpx"
+go get -u -v github.com/projectdiscovery/httpx/cmd/httpx
+
+echo "installing Naabu"
+go get -u -v github.com/projectdiscovery/naabu/v2/cmd/naabu
+
+echo "Installing Nuclei"
+go get -u -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
+
+Echo "Downloading Nuclei templates"
+cd ~/tools/
+git clone https://github.com/projectdiscovery/nuclei-templates
+
+Echo "Installing Amass"
+go get -v github.com/OWASP/Amass/v3/...
+
+Echo "Downloading Assetnote"
+aws s3 sync s3://assetnote-wordlists/data/ ./assetnote-wordlists --no-sign-request
+
+
 
 
 echo -e "\n\n\n\n\n\n\n\n\n\n\nDone! All tools are set up in ~/tools"
