@@ -1,6 +1,5 @@
 #!/bin/bash
-sudo apt-get -y update
-sudo apt-get -y upgrade
+
 
 
 sudo apt-get install -y libcurl4-openssl-dev
@@ -38,8 +37,8 @@ select choice in "${choices[@]}"; do
                 yes)
 
 					echo "Installing Golang"
-					wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
-					sudo tar -xvf go1.13.4.linux-amd64.tar.gz
+					wget https://golang.org/dl/go1.15.5.linux-amd64.tar.gz
+					sudo tar -xvf go1.15.5.linux-amd64.tar.gz
 					sudo mv go /usr/local
 					export GOROOT=/usr/local/go
 					export GOPATH=$HOME/go
@@ -102,13 +101,6 @@ git clone https://github.com/tomdev/teh_s3_bucketeers.git
 cd ~/tools/
 echo "done"
 
-
-echo "installing wpscan"
-git clone https://github.com/wpscanteam/wpscan.git
-cd wpscan*
-sudo gem install bundler && bundle install --without test
-cd ~/tools/
-echo "done"
 
 echo "installing dirsearch"
 git clone https://github.com/maurosoria/dirsearch.git
@@ -186,23 +178,26 @@ cd ~/tools/
 echo "done"
 
 echo "installing httpx"
-go get -u -v github.com/projectdiscovery/httpx/cmd/httpx
+GO111MODULE=on go get -u -v github.com/projectdiscovery/httpx/cmd/httpx
 
 echo "installing Naabu"
-go get -u -v github.com/projectdiscovery/naabu/v2/cmd/naabu
+GO111MODULE=on go get -u -v github.com/projectdiscovery/naabu/v2/cmd/naabu
 
 echo "Installing Nuclei"
-go get -u -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
+GO111MODULE=on go get -u -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
 
-Echo "Downloading Nuclei templates"
+echo "Downloading Nuclei templates"
 cd ~/tools/
 git clone https://github.com/projectdiscovery/nuclei-templates
 
-Echo "Installing Amass"
+echo "Installing Amass"
 go get -v github.com/OWASP/Amass/v3/...
 
-Echo "Downloading Assetnote"
+echo "Downloading Assetnote"
 aws s3 sync s3://assetnote-wordlists/data/ ./assetnote-wordlists --no-sign-request
+
+echo "Download subtake"
+go get github.com/jakejarvis/subtake
 
 
 
